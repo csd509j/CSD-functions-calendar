@@ -81,7 +81,7 @@ function render_calendar() {
 			
 			displayEventTime: true, // show the time column in list view
 			
-			googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
+			googleCalendarApiKey: '<?php echo GOOGLE_KEY; ?>',
 				
 			eventSources: allEventSources,
 
