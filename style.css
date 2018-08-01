@@ -1,0 +1,68 @@
+#calendar {
+	width: 100%;
+}
+#calendar .fc-view-container {
+	background-color: white;
+}
+#calendar.fc th {
+	background-color: #666;
+    color: #fff;
+    font-weight: 700;
+    padding: 1em 0;
+    white-space: nowrap;
+    border-left: 1px solid #666;
+    border-right: 1px solid #666;
+    font-size: 12px;
+}
+#calendar.fc .fc-row .fc-content-skeleton .fc-day-top {
+	background-color: #f7f7f7;
+    color: #707070;
+    padding: 4px 9px 6px;
+    line-height: 1.2;
+    font-size: 12px;
+    font-weight: 700;
+}
+#calendar.fc .fc-row .fc-content-skeleton .fc-day-top.fc-today {
+	background-color: #555;
+	color: white;
+}
+#calendar tr:first-child>td>.fc-day-grid-event {
+	margin-top: 5px;
+}
+.fc button, .fc table, body .fc {
+	font-size: 14px;
+}
+.fc-day-grid-event {
+	padding: 1px 10px;
+}
+#calendar td:not([colspan]) .fc-day-grid-event {
+	background-color: #ffffff !important;
+	border-color: #ffffff !important;
+}
+#calendar td[colspan]:not([colspan="1"]) .fc-day-grid-event {
+	color: white !important;	
+	background-color: #999999 !important;
+}
+#calendar.fc-unthemed td.fc-today {
+	background-color: #ffffff;
+}
+.page-template-page-calendar .popover .popover-content {
+	font-size: 12px !important;
+	line-height: 20px;
+}
+#calendar .fc-state-active, .fc-state-default {
+	box-shadow: none;
+	text-shadow: none;
+	border-color: #ccc;
+	background-image: none;
+}
+#calendar .fc-right {
+	width: 13%;
+}
+#calendar .fc-right .fc-button-group {
+	width: 100%;
+	text-align: right;
+}
+#calendar.fc .fc-right .fc-button-group>* {
+	float: none;
+}
