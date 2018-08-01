@@ -66,3 +66,19 @@
 #calendar.fc .fc-right .fc-button-group>* {
 	float: none;
 }
+#calendar-list h2 {
+	font-size: 18px;
+	margin-top: 5px;
+}
+#calendar-list .fc-list-heading {
+	display: none;
+}
+#calendar-list .fc-view-container {
+	background-color: white;
+}
+#calendar-list .fc-list-view {
+	border: none;
+}
+#calendar-list .fc-scroller {
+	height: auto !important;
+}
