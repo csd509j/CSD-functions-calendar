@@ -50,7 +50,7 @@
 	font-size: 12px !important;
 	line-height: 20px;
 }
-#calendar .fc-state-active, .fc-state-default {
+#calendar .fc-state-active, #calendar .fc-state-default, #calendar-list .fc-state-active, #calendar-list .fc-state-default  {
 	box-shadow: none;
 	text-shadow: none;
 	border-color: #ccc;
