@@ -82,3 +82,6 @@
 #calendar-list .fc-scroller {
 	height: auto !important;
 }
+.fc-ltr .fc-list-item-marker {
+	display: none;
+}
