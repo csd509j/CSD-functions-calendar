@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.3
+Version: 1.4
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -167,7 +167,61 @@ function render_list_view() {
 </script>
 <?php
 }
+function render_list_view_district() { 
+?>
+<div id='calendar-list-district'></div>
+<script>
+	$(function() {
+		var allEventSources = [];
+		
+		<?php if( have_rows('calendars', 'options') ): ?>
+			<?php while( have_rows('calendars', 'options') ): the_row(); ?>
+				<?php $calendar_address = get_sub_field('calendar_address'); ?>
+				<?php $calendar_name = get_sub_field('calendar_name'); ?>
+				<?php $calendar_color = get_sub_field('calendar_color'); ?>
+				
+				allEventSources.push(
+				{
+					id: '<?php echo $calendar_name; ?>', 
+					googleCalendarId: '<?php echo $calendar_address; ?>', 
+					textColor: '<?php echo $calendar_color; ?>',
+					backgroundColor: '<?php echo $calendar_color; ?>',
+					borderColor: '<?php echo $calendar_color; ?>',
+				});
 
+			<?php endwhile; ?>
+		<?php endif; ?>	
+		
+		$('#calendar-list-district').fullCalendar({
+
+			defaultView: 'list',
+			
+			displayEventTime: false, // show the time column in list view
+			
+			googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
+				
+			eventSources: allEventSources,
+			
+			header: false,
+			
+			views: {
+                list: {
+                    duration: { days: 30 },
+                    eventLimit: 1,
+                }
+            },
+
+			eventClick: function (event) {
+				// opens events in a popup window
+				window.open(event.url, '_blank', 'width=700,height=600');
+				return false;
+			},
+			
+		});
+	});
+</script>
+<?php
+}
 function calendar_enqueue_script() {
 	wp_enqueue_style( 'fullcalendar.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' ); 
 	wp_enqueue_style( 'fullcalendar-style.css', plugin_dir_url( __FILE__ ) . 'style.css' ); 

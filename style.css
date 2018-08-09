@@ -1,3 +1,6 @@
+.fc-list-item-title a[href]:hover{
+	text-decoration: none;
+}
 #calendar {
 	width: 100%;
 }
@@ -66,6 +69,8 @@
 #calendar.fc .fc-right .fc-button-group>* {
 	float: none;
 }
+
+/* Calendar List View */
 #calendar-list h2 {
 	font-size: 18px;
 	margin-top: 5px;
@@ -84,4 +89,28 @@
 }
 .fc-ltr .fc-list-item-marker {
 	display: none;
+}
+
+/* Calendar List View District */
+#calendar-list-district .fc-toolbar.fc-header-toolbar {
+	display: none;
+}
+#calendar-list-district .fc-scroller {
+	height: auto !important;
+}
+#calendar-list-district .fc-list-table td, #calendar-list-district .fc-list-view {
+	border-width: 0;
+}
+#calendar-list-district.fc-ltr .fc-list-heading-main {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+#calendar-list-district.fc-unthemed .fc-list-item:hover td {
+	background-color: white;
+}
+#calendar-list-district .fc-list-table  tr {
+	display: none;
+}
+#calendar-list-district .fc-list-table tr:nth-child(-n+8){
+    display: table-row;
 }
