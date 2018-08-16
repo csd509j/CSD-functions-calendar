@@ -1,3 +1,46 @@
+#calendar-dropdown {
+	position: relative
+}
+#calendar-dropdown .dropdown-menu {
+	margin-top: 0;
+	border-radius: 0;
+	padding: 5px 15px;
+}
+#calendar-dropdown input[type="checkbox"] {
+	position: absolute;
+	right: 9000px;
+}
+#calendar-dropdown input[type="checkbox"] + .label-text:before{
+	content: "\f096";
+	font-family: "FontAwesome";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing:antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 5px;
+}
+#calendar-dropdown input[type="checkbox"]:checked + .label-text:before{
+	content: "\f14a";
+	color: #2980b9;
+	animation: effect 250ms ease-in;
+}
+#calendar-dropdown input[type="checkbox"]:disabled + .label-text{
+	color: #aaa;
+}
+#calendar-dropdown input[type="checkbox"]:disabled + .label-text:before{
+	content: "\f0c8";
+	color: #ccc;
+}
+#calendar-dropdown .label-color {
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+}
 .fc-list-item-title a[href]:hover{
 	text-decoration: none;
 }
