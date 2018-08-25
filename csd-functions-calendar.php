@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.5
+Version: 1.6
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -29,7 +29,7 @@ function render_calendar() {
 					<?php $count = 0; ?>
 					<?php while( have_rows('calendars', 'options') ): the_row(); ?>
 						<li>
-						   <label class="checkbox"><input type="checkbox" id="<?php echo str_replace(' ', '_', get_sub_field('calendar_name')); ?>" checked="checked" value="<?php echo $count; ?>" /><span class="label-text"> <span class="label-color" style="background-color: <?php the_sub_field('calendar_color'); ?>"></span> <?php the_sub_field('calendar_name'); ?></label>
+						   <label class="checkbox"><input type="checkbox" id="<?php echo str_replace(' ', '_', get_sub_field('calendar_name')); ?>" <?php echo get_sub_field('visible') ? 'checked="checked"' : ''; ?> value="<?php echo $count; ?>" /><span class="label-text"> <span class="label-color" style="background-color: <?php the_sub_field('calendar_color'); ?>"></span> <?php the_sub_field('calendar_name'); ?></label>
 						</li>
 						<?php $count++; ?>
 					<?php endwhile; ?>
