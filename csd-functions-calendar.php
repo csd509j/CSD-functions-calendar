@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.6
+Version: 1.7
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -242,6 +242,52 @@ function render_list_view_district() {
 </script>
 <?php
 }
+
+function render_page_builder_calendar($calendar_address) {
+?>
+	<div id='calendar-list-page'></div>
+	<script>
+		$(function() {
+			var allEventSources = [];
+			allEventSources.push(
+			{
+				id: 'calendar-list-page', 
+				googleCalendarId: '<?php echo $calendar_address; ?>', 
+				textColor: '#333333',
+				backgroundColor: '#ffffff',
+				borderColor: '#333333',
+			});
+			
+			$('#calendar-list-page').fullCalendar({
+	
+				defaultView: 'list',
+				
+				displayEventTime: true, // show the time column in list view
+				
+				googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
+					
+				eventSources: allEventSources,
+				
+				header: false,
+				
+				views: {
+	                list: {
+	                    duration: { days: 120 },
+	                }
+	            },
+	
+				eventClick: function (event) {
+					// opens events in a popup window
+					window.open(event.url, '_blank', 'width=700,height=600');
+					return false;
+				},
+				
+			});
+		});
+	</script>
+<?php 
+}
+
 function calendar_enqueue_script() {
 	wp_enqueue_style( 'fullcalendar.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' ); 
 	wp_enqueue_style( 'fullcalendar-style.css', plugin_dir_url( __FILE__ ) . 'style.css' ); 
