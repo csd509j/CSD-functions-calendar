@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.7
+Version: 1.8
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -104,6 +104,8 @@ function render_calendar() {
 			googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
 				
 			eventSources: allEventSources,
+			
+			timezone: 'America/Los_Angeles',
 
 			eventClick: function (event) {
 				// opens events in a popup window
@@ -164,6 +166,8 @@ function render_list_view() {
 			googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
 				
 			eventSources: allEventSources,
+			
+			timezone: 'America/Los_Angeles',
 
 			eventClick: function (event) {
 				// opens events in a popup window
@@ -224,6 +228,8 @@ function render_list_view_district() {
 			
 			header: false,
 			
+			timezone: 'America/Los_Angeles',
+			
 			views: {
                 list: {
                     duration: { days: 30 },
@@ -269,6 +275,8 @@ function render_page_builder_calendar($calendar_address) {
 				eventSources: allEventSources,
 				
 				header: false,
+				
+				timezone: 'America/Los_Angeles',
 				
 				views: {
 	                list: {
