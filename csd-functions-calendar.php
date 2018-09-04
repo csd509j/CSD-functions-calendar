@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.8
+Version: 1.9
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -294,6 +294,52 @@ function render_page_builder_calendar($calendar_address) {
 		});
 	</script>
 <?php 
+}
+
+function render_block_calendar($calendar_address) {
+?>
+	<div id='calendar-block-header'></div>
+	<script>
+		$(function() {
+			var allEventSources = [];
+			allEventSources.push(
+			{
+				id: 'calendar-block-header', 
+				googleCalendarId: '<?php echo $calendar_address; ?>', 
+				textColor: '#ffffff',
+				backgroundColor: '#ffffff',
+				borderColor: '#333333',
+			});
+			
+			$('#calendar-block-header').fullCalendar({
+	
+				defaultView: 'listDay',
+				
+				listDayFormat: false,
+				
+				listDayAltFormat: false,
+				
+				noEventsMessage: 'No school today',
+				
+				displayEventTime: false, // show the time column in list view
+				
+				googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
+					
+				eventSources: allEventSources,
+				
+				header: false,
+				
+				timezone: 'America/Los_Angeles',
+				
+				eventClick: function (event) {
+					// opens events in a popup window
+					window.open(event.url, '_blank', 'width=700,height=600');
+					return false;
+				},
+			});
+		});
+	</script>
+<?php 	
 }
 
 function calendar_enqueue_script() {
