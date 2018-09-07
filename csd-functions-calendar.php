@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.9
+Version: 1.10
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -328,14 +328,14 @@ function render_block_calendar($calendar_address) {
 				eventSources: allEventSources,
 				
 				header: false,
-				
+								
 				timezone: 'America/Los_Angeles',
-				
-				eventClick: function (event) {
-					// opens events in a popup window
-					window.open(event.url, '_blank', 'width=700,height=600');
-					return false;
-				},
+			
+				eventRender: function (event, element) {
+					content = '<ul id="calendar-block-wrap" class="list-inline"><li><i class="fa fa-calendar"></i> ' + event.title + '</li><li class="hidden-xs"><i class="fa fa-phone-square"></i> Attendance <a href="tel:<?php the_field('attendance_phone', 'options'); ?>"><?php the_field('attendance_phone', 'options'); ?></a></li></ul>';
+					$('#calendar-block-header').html(content);
+					$('#calendar-block-header').removeClass('fc fc-unthemed fc-ltr')
+				}
 			});
 		});
 	</script>
