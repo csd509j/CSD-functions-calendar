@@ -152,7 +152,7 @@
 }
 
 /* Calendar List View District */
-#calendar-list-district .fc-toolbar.fc-header-toolbar {
+#calendar-list-district .fc-toolbar.fc-header-toolbar, #calendar-list-district.fc-ltr .fc-list-item-marker {
 	display: none;
 }
 #calendar-list-district .fc-scroller {

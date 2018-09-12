@@ -212,9 +212,7 @@ function render_list_view_district() {
 		$('#calendar-list-district').fullCalendar({
 
 			defaultView: 'list',
-			
-			displayEventTime: false, // show the time column in list view
-			
+						
 			googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
 				
 			eventSources: allEventSources,
