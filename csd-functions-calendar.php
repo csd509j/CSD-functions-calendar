@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.11
+Version: 1.13
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -336,8 +336,10 @@ function render_block_calendar($calendar_address) {
 }
 
 function calendar_enqueue_script() {
+	$plugin = get_plugin_data( __FILE__, false, false );
+	
 	wp_enqueue_style( 'fullcalendar.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' ); 
-	wp_enqueue_style( 'fullcalendar-style.css', plugin_dir_url( __FILE__ ) . 'style.css' ); 
+	wp_enqueue_style( 'fullcalendar-style.css', plugin_dir_url( __FILE__ ) . 'style.css', '', $plugin['Version'] ); 
 	wp_enqueue_script( 'moment.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js', 'jquery', '', true );
 	wp_enqueue_script( 'popper.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', 'jquery', '', true );
 	wp_enqueue_script( 'full-calendar.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js', 'jquery', '', true );
