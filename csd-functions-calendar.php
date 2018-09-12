@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.13
+Version: 1.14
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -148,37 +148,28 @@ function render_list_view() {
 
 			<?php endwhile; ?>
 		<?php endif; ?>	
-		 var x = 0;
 		$('#calendar-list').fullCalendar({
 
-			defaultView: 'list',
-			
+			defaultView: 'listWeek',
+						
 			displayEventTime: true, // show the time column in list view
+			
+			header: false,
+			
+			allDayText: "-",
 			
 			googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
 				
 			eventSources: allEventSources,
 			
 			timezone: 'America/Los_Angeles',
-
-			views: {
-                list: {
-                    duration: { days: 60 },
-                }
-            },
             
 			eventClick: function (event) {
 				// opens events in a popup window
 				window.open(event.url, '_blank', 'width=700,height=600');
 				return false;
 			},
-			eventAfterRender: function(eventObj, el) {
-				if (eventObj.allDay) {
-					$(el).html('<td class="fc-list-item-title fc-widget-content"><a href="' + eventObj.url + '">' + eventObj.title + '</a></td><td class="fc-list-item-time fc-widget-content">' + moment(eventObj.start,x).format('ddd') + '</td><td class="fc-list-item-time fc-widget-content">' + moment(eventObj.start,x).format('MMM DD') + '</td><td class="fc-list-item fc-widget-content">-</td><td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot" style="background-color:#580821"></span></td>');
-				} else {
-					$(el).html('<td class="fc-list-item-title fc-widget-content"><a href="' + eventObj.url + '">' + eventObj.title + '</a></td><td class="fc-list-item-time fc-widget-content">' + moment(eventObj.start,x).format('ddd') + '</td><td class="fc-list-item-time fc-widget-content">' + moment(eventObj.start,x).format('MMM DD') + '<td class="fc-list-item fc-widget-content">' + moment(eventObj.start,x).format('hh:mm A') + '</td><<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot" style="background-color:#580821"></span></td>');
-				}
-			}
+			
 		});
 	});
 </script>

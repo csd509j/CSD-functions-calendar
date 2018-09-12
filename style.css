@@ -127,9 +127,14 @@
 #calendar-list .fc-toolbar {
 	display: none;
 }
+#calendar-list .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header {
+	background-color: #ddd;
+}
+/*
 #calendar-list .fc-list-heading {
 	display: none;
 }
+*/
 #calendar-list .fc-view-container {
 	background-color: white;
 }
@@ -142,7 +147,7 @@
 #calendar-list.fc-ltr .fc-list-item-marker {
 	display: none;
 }
-#calendar-list .fc-list-item:nth-of-type(1n+13){ 
+#calendar-list [class^="fc-list-"]nth-of-type(1n+13){ 
 	display: none;
 }
 
