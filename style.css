@@ -4,7 +4,13 @@
 #calendar-dropdown .dropdown-menu {
 	margin-top: 0;
 	border-radius: 0;
-	padding: 5px 15px;
+	padding: 5px;
+}
+#calendar-dropdown .dropdown-menu > li > a:hover, #calendar-dropdown .dropdown-menu > li > a:focus {
+	background-color: transparent;
+}
+#calendar-dropdown .dropdown-menu > li > a {
+	padding: 3px 10px;
 }
 #calendar-dropdown input[type="checkbox"] {
 	position: absolute;
@@ -118,6 +124,9 @@
 	font-size: 18px;
 	margin-top: 5px;
 }
+#calendar-list .fc-toolbar {
+	display: none;
+}
 #calendar-list .fc-list-heading {
 	display: none;
 }
@@ -130,7 +139,10 @@
 #calendar-list .fc-scroller {
 	height: auto !important;
 }
-.fc-ltr .fc-list-item-marker {
+#calendar-list.fc-ltr .fc-list-item-marker {
+	display: none;
+}
+#calendar-list .fc-list-item:nth-of-type(1n+13){ 
 	display: none;
 }
 

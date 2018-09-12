@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.10
+Version: 1.11
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -21,21 +21,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 function render_calendar() {
 ?>
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-xs-4">
 		<?php if( have_rows('calendars', 'options') ): ?>
 			<div id="calendar-dropdown" class="margin-bottom-one">
-				<button type="button" id="dropdown-menu" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> Select Calendars <span class="caret"></span></button>
+				<button type="button" id="dropdown-menu" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> Subscribe <span class="caret"></span></button>
 	            <ul class="dropdown-menu" aria-labelledby="dropdown-menu" >
-					<?php $count = 0; ?>
 					<?php while( have_rows('calendars', 'options') ): the_row(); ?>
-						<li>
-						   <label class="checkbox"><input type="checkbox" id="<?php echo str_replace(' ', '_', get_sub_field('calendar_name')); ?>" <?php echo get_sub_field('visible') ? 'checked="checked"' : ''; ?> value="<?php echo $count; ?>" /><span class="label-text"> <span class="label-color" style="background-color: <?php the_sub_field('calendar_color'); ?>"></span> <?php the_sub_field('calendar_name'); ?></label>
-						</li>
-						<?php $count++; ?>
+						<li><a href="<?php the_sub_field('calendar_ical'); ?>"><i class="fa fa-download"></i> <?php the_sub_field('calendar_name'); ?></a></li>
 					<?php endwhile; ?>
 	            </ul>
 			</div>
 		<?php endif; ?> 
+	</div>
+	<div class="col-xs-4 text-center">
+		<h1 id="month"><?php echo date('F'); ?></h1>
+	</div>
+	<div class="col-xs-4 text-right">
+		<button id="prev" class="btn btn-primary btn-sm"><i class="fa fa-caret-left"></i> Prev</button>
+		<button id="next" class="btn btn-primary btn-sm">Next <i class="fa fa-caret-right "></i></button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
 		<div id="calendar"></div>
 	</div>
 </div>
@@ -66,36 +73,10 @@ function render_calendar() {
 
 			<?php endwhile; ?>
 		<?php endif; ?>
-		
-		$( '.dropdown-menu li' ).on( 'click', function( event ) {
-	        var $checkbox = $(this).find('.checkbox');
-	        
-	        if (!$checkbox.length) {
-	            return;
-	        }
-	        
-	        var $input = $checkbox.find('input');
-	        
-	        if ($input.is(':checked')) {
-	            $input.prop('checked', false);
-	            $('#calendar').fullCalendar('removeEventSource', allEventSources[$input.val()]);
-	        } else {
-	            $input.prop('checked', true);
-	            $('#calendar').fullCalendar('addEventSource', allEventSources[$input.val()]);
-	        }
-	        
-	        $('#calendar').fullCalendar('rerenderEvents');
-	        
-	        return false;
-    	}); 
-
+	
 		$('#calendar').fullCalendar({
 
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,listYear'
-			},
+			header: false,
 			
 			defaultView: window.mobilecheck() ? "listMonth" : "month",
 			
@@ -126,7 +107,18 @@ function render_calendar() {
 			}
 			
 		});
+		
+		$('#prev').on('click', function() {
+		    $('#calendar').fullCalendar('prev'); // call method
+		    var moment = $('#calendar').fullCalendar('getDate');
+		    $('#month').html(moment.format('MMMM'));
+		});
 
+		$('#next').on('click', function() {
+			$('#calendar').fullCalendar('next'); // call method
+			var moment = $('#calendar').fullCalendar('getDate');
+			$('#month').html(moment.format('MMMM'));
+		});
 	});
 </script>
 <?php
@@ -156,10 +148,10 @@ function render_list_view() {
 
 			<?php endwhile; ?>
 		<?php endif; ?>	
-		
+		 var x = 0;
 		$('#calendar-list').fullCalendar({
 
-			defaultView: 'listDay',
+			defaultView: 'list',
 			
 			displayEventTime: true, // show the time column in list view
 			
@@ -169,22 +161,23 @@ function render_list_view() {
 			
 			timezone: 'America/Los_Angeles',
 
+			views: {
+                list: {
+                    duration: { days: 60 },
+                }
+            },
+            
 			eventClick: function (event) {
 				// opens events in a popup window
 				window.open(event.url, '_blank', 'width=700,height=600');
 				return false;
 			},
-			eventRender: function(eventObj, el) {
-				if (eventObj.description === undefined) {
-					eventObj.description = "";
-				} 
-				$(el).popover({
-					title: eventObj.title,
-					content: eventObj.description,
-					trigger: 'hover',
-					placement: 'top',
-					container: 'body'
-				}); 
+			eventAfterRender: function(eventObj, el) {
+				if (eventObj.allDay) {
+					$(el).html('<td class="fc-list-item-title fc-widget-content"><a href="' + eventObj.url + '">' + eventObj.title + '</a></td><td class="fc-list-item-time fc-widget-content">' + moment(eventObj.start,x).format('ddd') + '</td><td class="fc-list-item-time fc-widget-content">' + moment(eventObj.start,x).format('MMM DD') + '</td><td class="fc-list-item fc-widget-content">-</td><td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot" style="background-color:#580821"></span></td>');
+				} else {
+					$(el).html('<td class="fc-list-item-title fc-widget-content"><a href="' + eventObj.url + '">' + eventObj.title + '</a></td><td class="fc-list-item-time fc-widget-content">' + moment(eventObj.start,x).format('ddd') + '</td><td class="fc-list-item-time fc-widget-content">' + moment(eventObj.start,x).format('MMM DD') + '<td class="fc-list-item fc-widget-content">' + moment(eventObj.start,x).format('hh:mm A') + '</td><<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot" style="background-color:#580821"></span></td>');
+				}
 			}
 		});
 	});
