@@ -1,6 +1,7 @@
 .calendar-dropdown {
 	position: relative;
 	display: inline-block;
+	margin-right: 5px;
 }
 .calendar-dropdown .dropdown-menu {
 	margin-top: 0;
