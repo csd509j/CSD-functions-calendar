@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.17
+Version: 1.18
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -69,7 +69,7 @@ function render_calendar() {
 		</div>
 	</div>
 	<div class="col-xs-4 text-center">
-		<h1 id="month"><?php echo date('F'); ?></h1>
+		<h1 id="month"><?php echo date('F Y'); ?></h1>
 	</div>
 	<div class="col-xs-4 text-right">
 		<button id="prev" class="btn btn-primary btn-sm"><i class="fa fa-caret-left"></i> Prev</button>
@@ -225,13 +225,13 @@ function render_calendar() {
 		$('#prev').on('click', function() {
 		    $('#calendar').fullCalendar('prev'); // call method
 		    var moment = $('#calendar').fullCalendar('getDate');
-		    $('#month').html(moment.format('MMMM'));
+		    $('#month').html(moment.format('MMMM YYYY'));
 		});
 
 		$('#next').on('click', function() {
 			$('#calendar').fullCalendar('next'); // call method
 			var moment = $('#calendar').fullCalendar('getDate');
-			$('#month').html(moment.format('MMMM'));
+			$('#month').html(moment.format('MMMM YYYY'));
 		});
 		
 	});
