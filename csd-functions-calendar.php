@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.16
+Version: 1.17
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -22,16 +22,51 @@ function render_calendar() {
 ?>
 <div class="row">
 	<div class="col-xs-4">
-		<?php if( have_rows('calendars', 'options') ): ?>
-			<div id="calendar-dropdown" class="margin-bottom-one">
-				<button type="button" id="dropdown-menu" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> Subscribe <span class="caret"></span></button>
-	            <ul class="dropdown-menu" aria-labelledby="dropdown-menu" >
+		<div class="calendar-dropdown">
+			<button type="button" id="dropdown-menu" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-rss"></i> Subscribe <i class="fa fa-caret-down"></i></button>
+            <ul class="dropdown-menu" aria-labelledby="dropdown-menu" >
+	            <?php if( have_rows('calendars', 'options') ): ?>
 					<?php while( have_rows('calendars', 'options') ): the_row(); ?>
-						<li><a href="<?php the_sub_field('calendar_ical'); ?>"><i class="fa fa-download"></i> <?php the_sub_field('calendar_name'); ?></a></li>
+						<li>
+							<a href="<?php the_sub_field('calendar_ical'); ?>"><i class="fa fa-download"></i> <label><?php the_sub_field('calendar_name'); ?></label></a>
+						</li>
+					<?php endwhile; ?>		
+				<?php endif; ?>			
+				<?php if( have_rows('school_calendars', 'options') ): ?>
+					<li role="separator" class="divider"></li>
+					<li class="dropdown-header">School Calendars</li>
+					<?php while( have_rows('school_calendars', 'options') ): the_row(); ?>
+						<li>
+							<a href="<?php the_sub_field('calendar_ical'); ?>"><i class="fa fa-download"></i> <label><?php the_sub_field('calendar_name'); ?></label></a>
+						</li>
 					<?php endwhile; ?>
-	            </ul>
-			</div>
-		<?php endif; ?> 
+				<?php endif; ?>
+            </ul>
+		</div>
+		<div id="calendar-dropdown-view" class="calendar-dropdown">
+			<button type="button" id="dropdown-menu-view" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-filter"></i> Filter <i class="fa fa-caret-down"></i></button>
+			<ul class="dropdown-menu" aria-labelledby="dropdown-menu-view" >
+				<?php if( have_rows('calendars', 'options') ): ?>
+					<?php $count = 0; ?>
+					<?php while( have_rows('calendars', 'options') ): the_row(); ?>
+						<li>
+						   <label class="checkbox"><input type="checkbox" id="<?php echo str_replace(' ', '_', get_sub_field('calendar_name')); ?>" <?php echo get_sub_field('visible') ? 'checked="checked"' : ''; ?> value="<?php echo $count; ?>" /><span class="label-text"><?php the_sub_field('calendar_name'); ?></label>
+						</li>
+						<?php $count++; ?>
+					<?php endwhile; ?>
+				<?php endif; ?>
+				<?php if( have_rows('school_calendars', 'options') ): ?>
+					<li role="separator" class="divider"></li>
+					<li class="dropdown-header">School Calendars</li>	
+				 	<?php while( have_rows('school_calendars', 'options') ): the_row(); ?>
+				 		<li>
+							<label class="checkbox"><input type="checkbox" id="<?php echo str_replace(' ', '_', get_sub_field('calendar_name')); ?>" <?php echo get_sub_field('visible') ? 'checked="checked"' : ''; ?> value="<?php echo $count; ?>" /><span class="label-text"><?php the_sub_field('calendar_name'); ?></label>
+				 		</li>
+				 		<?php $count++; ?>
+				 	<?php endwhile; ?>
+				<?php endif; ?>           
+			</ul>
+		</div>
 	</div>
 	<div class="col-xs-4 text-center">
 		<h1 id="month"><?php echo date('F'); ?></h1>
@@ -54,25 +89,104 @@ function render_calendar() {
 			return check;
 		};
     
+		var initialEventSources = [];
 		var allEventSources = [];
 		
+		// Get district calendars
 		<?php if( have_rows('calendars', 'options') ): ?>
 			<?php while( have_rows('calendars', 'options') ): the_row(); ?>
 				<?php $calendar_address = get_sub_field('calendar_address'); ?>
 				<?php $calendar_name = get_sub_field('calendar_name'); ?>
 				<?php $calendar_color = get_sub_field('calendar_color'); ?>
 				
-				allEventSources.push(
-				{
+				// Load calendars that are marked as visable
+				<?php if( get_sub_field('visible') ): ?>
+					
+					initialEventSources.push({
+						id: '<?php echo str_replace(' ' , '_', $calendar_name); ?>', 
+						googleCalendarId: '<?php echo $calendar_address; ?>', 
+						textColor: '<?php echo $calendar_color; ?>',
+						backgroundColor: '<?php echo $calendar_color; ?>',
+						borderColor: '<?php echo $calendar_color; ?>',
+					});
+				
+				<?php endif; ?>
+				
+				// Load all available calendars
+				allEventSources.push({
 					id: '<?php echo str_replace(' ' , '_', $calendar_name); ?>', 
 					googleCalendarId: '<?php echo $calendar_address; ?>', 
 					textColor: '<?php echo $calendar_color; ?>',
 					backgroundColor: '<?php echo $calendar_color; ?>',
 					borderColor: '<?php echo $calendar_color; ?>',
 				});
-
+				
 			<?php endwhile; ?>
 		<?php endif; ?>
+		console.log(allEventSources);
+		// If applicable, get school calendars
+		<?php if( have_rows('school_calendars', 'options') ): ?>
+			<?php while( have_rows('school_calendars', 'options') ): the_row(); ?>
+				<?php $calendar_address = get_sub_field('calendar_address'); ?>
+				<?php $calendar_name = get_sub_field('calendar_name'); ?>
+				<?php $calendar_color = get_sub_field('calendar_color'); ?>
+				
+				// Load all available calendars
+				allEventSources.push({
+					id: '<?php echo str_replace(' ' , '_', $calendar_name); ?>', 
+					googleCalendarId: '<?php echo $calendar_address; ?>', 
+					textColor: '<?php echo $calendar_color; ?>',
+					backgroundColor: '<?php echo $calendar_color; ?>',
+					borderColor: '<?php echo $calendar_color; ?>',
+				});
+				
+			<?php endwhile; ?>
+		<?php endif; ?>
+				
+		// Toggle function for calendars
+		$( '.dropdown-menu li' ).on( 'click', function( event ) {
+	        var $checkbox = $(this).find('.checkbox');
+	        
+	        if (!$checkbox.length) {
+	            return;
+	        }
+	        
+	        var $input = $checkbox.find('input');
+	        
+	        if ($input.is(':checked')) {
+	            $input.prop('checked', false);
+	            $('#calendar').fullCalendar('removeEventSource', allEventSources[$input.val()]);
+	        } else {
+	            $input.prop('checked', true);
+	            $('#calendar').fullCalendar('addEventSource', allEventSources[$input.val()]);
+	        }
+	        
+	        $('#calendar').fullCalendar('rerenderEvents');
+	        
+	        return false;
+    	}); 
+		
+		// Only close dropdown when clicking outside
+		$('#calendar-dropdown-view').on('click', function(event){
+		    var events = $._data(document, 'events') || {};
+		    events = events.click || [];
+		    for(var i = 0; i < events.length; i++) {
+		        if(events[i].selector) {
+		
+		            //Check if the clicked element matches the event selector
+		            if($(event.target).is(events[i].selector)) {
+		                events[i].handler.call(event.target, event);
+		            }
+		
+		            // Check if any of the clicked element parents matches the 
+		            // delegated event selector (Emulating propagation)
+		            $(event.target).parents(events[i].selector).each(function(){
+		                events[i].handler.call(this, event);
+		            });
+		        }
+		    }
+		    event.stopPropagation(); //Always stop propagation
+		});
 	
 		$('#calendar').fullCalendar({
 
@@ -84,7 +198,7 @@ function render_calendar() {
 			
 			googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
 				
-			eventSources: allEventSources,
+			eventSources: initialEventSources,
 			
 			timezone: 'America/Los_Angeles',
 
@@ -119,6 +233,7 @@ function render_calendar() {
 			var moment = $('#calendar').fullCalendar('getDate');
 			$('#month').html(moment.format('MMMM'));
 		});
+		
 	});
 </script>
 <?php

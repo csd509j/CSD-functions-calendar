@@ -1,22 +1,40 @@
-#calendar-dropdown {
-	position: relative
+.calendar-dropdown {
+	position: relative;
+	display: inline-block;
 }
-#calendar-dropdown .dropdown-menu {
+.calendar-dropdown .dropdown-menu {
 	margin-top: 0;
 	border-radius: 0;
-	padding: 5px;
+	padding: 5px 15px;
+	min-width: 250px;
 }
-#calendar-dropdown .dropdown-menu > li > a:hover, #calendar-dropdown .dropdown-menu > li > a:focus {
+.calendar-dropdown .dropdown-menu > li > a:hover, .calendar-dropdown .dropdown-menu > li > a:focus {
 	background-color: transparent;
 }
-#calendar-dropdown .dropdown-menu > li > a {
-	padding: 3px 10px;
+.calendar-dropdown .dropdown-menu > li {
+	padding: 3px 0;
 }
-#calendar-dropdown input[type="checkbox"] {
+.calendar-dropdown .dropdown-menu > li.divider {
+	padding: 0;
+}
+.calendar-dropdown .dropdown-header {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.calendar-dropdown input[type="checkbox"] {
 	position: absolute;
 	right: 9000px;
 }
-#calendar-dropdown input[type="checkbox"] + .label-text:before{
+.calendar-dropdown .checkbox {
+	margin: 0;
+}
+.calendar-dropdown label {
+	margin: 0;
+}
+.calendar-dropdown .dropdown-menu > li > a {
+	padding: 0;
+}
+.calendar-dropdown input[type="checkbox"] + .label-text:before{
 	content: "\f096";
 	font-family: "FontAwesome";
 	speak: none;
@@ -30,19 +48,19 @@
 	display: inline-block;
 	margin-right: 5px;
 }
-#calendar-dropdown input[type="checkbox"]:checked + .label-text:before{
+.calendar-dropdown input[type="checkbox"]:checked + .label-text:before{
 	content: "\f14a";
 	color: #2980b9;
 	animation: effect 250ms ease-in;
 }
-#calendar-dropdown input[type="checkbox"]:disabled + .label-text{
+.calendar-dropdown input[type="checkbox"]:disabled + .label-text{
 	color: #aaa;
 }
-#calendar-dropdown input[type="checkbox"]:disabled + .label-text:before{
+.calendar-dropdown input[type="checkbox"]:disabled + .label-text:before{
 	content: "\f0c8";
 	color: #ccc;
 }
-#calendar-dropdown .label-color {
+.calendar-dropdown .label-color {
 	width: 10px;
 	height: 10px;
 	display: inline-block;
