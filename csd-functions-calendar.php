@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.19
+Version: 1.2
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -123,7 +123,7 @@ function render_calendar() {
 				
 			<?php endwhile; ?>
 		<?php endif; ?>
-		console.log(allEventSources);
+
 		// If applicable, get school calendars
 		<?php if( have_rows('school_calendars', 'options') ): ?>
 			<?php while( have_rows('school_calendars', 'options') ): the_row(); ?>
