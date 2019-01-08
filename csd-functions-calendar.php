@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.4
+Version: 1.5
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -191,6 +191,8 @@ function render_calendar() {
 	
 		$('#calendar').fullCalendar({
 
+			themeSystem: 'bootstrap4',
+			
 			header: false,
 			
 			defaultView: window.mobilecheck() ? "listMonth" : "month",
@@ -266,6 +268,8 @@ function render_list_view() {
 		<?php endif; ?>	
 		$('#calendar-list').fullCalendar({
 
+			themeSystem: 'bootstrap4',
+			
 			defaultView: 'list',
 						
 			displayEventTime: true, // show the time column in list view
@@ -327,6 +331,8 @@ function render_list_view_district() {
 		
 		$('#calendar-list-district').fullCalendar({
 
+			themeSystem: 'bootstrap4',
+			
 			defaultView: 'list',
 						
 			googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
@@ -373,6 +379,8 @@ function render_page_builder_calendar($calendar_address) {
 			
 			$('#calendar-list-page').fullCalendar({
 	
+				themeSystem: 'bootstrap4',
+				
 				defaultView: 'list',
 				
 				displayEventTime: true, // show the time column in list view
@@ -420,6 +428,8 @@ function render_block_calendar($calendar_address) {
 			
 			$('#calendar-block-header').fullCalendar({
 	
+				themeSystem: 'bootstrap4',
+				
 				defaultView: 'listDay',
 				
 				listDayFormat: false,
