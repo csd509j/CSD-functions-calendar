@@ -114,7 +114,7 @@
 	color: white !important;	
 	background-color: #999999 !important;
 }
-#calendar.fc-unthemed td.fc-today {
+#calendar.fc-bootstrap4 td.fc-today {
 	background-color: #ffffff;
 }
 .page-template-page-calendar .popover .popover-content {
@@ -139,6 +139,9 @@
 }
 
 /* Calendar List View */
+#calendar-list td {
+	padding: 8px 14px;
+}
 #calendar-list h2 {
 	font-size: 18px;
 	margin-top: 5px;
@@ -146,14 +149,9 @@
 #calendar-list .fc-toolbar {
 	display: none;
 }
-#calendar-list .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header {
+#calendar-list .fc-bootstrap4 .fc-divider, .fc-bootstrap4 .fc-list-heading td, .fc-bootstrap4 .fc-popover .fc-header {
 	background-color: #ddd;
 }
-/*
-#calendar-list .fc-list-heading {
-	display: none;
-}
-*/
 #calendar-list .fc-view-container {
 	background-color: white;
 }
@@ -184,7 +182,7 @@
 	font-size: 12px;
 	text-transform: uppercase;
 }
-#calendar-list-district.fc-unthemed .fc-list-item:hover td {
+#calendar-list-district.fc-bootstrap4 .fc-list-item:hover td {
 	background-color: white;
 }
 #calendar-list-district .fc-list-table  tr {
