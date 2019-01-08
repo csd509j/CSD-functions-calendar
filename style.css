@@ -139,6 +139,9 @@
 }
 
 /* Calendar List View */
+#calendar-list table {
+	margin-bottom: 0;
+}
 #calendar-list td {
 	padding: 8px 14px;
 }
