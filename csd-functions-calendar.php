@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.7
+Version: 1.8
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -276,7 +276,7 @@ function render_list_view() {
             
             views: {
 				list: {
-					duration: { days: 5 },
+					duration: { days: <?php echo (get_field('school_type', 'options') == 'Elementary' ? '10' : '5'); ?> },
 					eventLimit: 1
 				}
 			},
