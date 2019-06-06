@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 1.9
+Version: 2.0
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -20,51 +20,79 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function render_calendar() {
 ?>
+
 <div class="row">
 	<div class="col-lg-4 d-none d-lg-flex">
 		<div class="calendar-dropdown">
-			<button type="button" id="dropdown-menu" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-rss"></i> Subscribe </button>
+			<button type="button" id="dropdown-menu" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-rss"></i> <?php _e('Subscribe','csdschools'); ?> </button>
             <ul class="dropdown-menu" aria-labelledby="dropdown-menu" >
+	            
 	            <?php if( have_rows('calendars', 'options') ): ?>
+				
 					<?php while( have_rows('calendars', 'options') ): the_row(); ?>
+				
 						<li>
 							<a href="<?php the_sub_field('calendar_ical'); ?>"><i class="fa fa-download"></i> <label><?php the_sub_field('calendar_name'); ?></label></a>
 						</li>
+				
 					<?php endwhile; ?>		
+				
 				<?php endif; ?>			
+				
 				<?php if( have_rows('school_calendars', 'options') ): ?>
+					
 					<li role="separator" class="divider"></li>
-					<li class="dropdown-header">School Calendars</li>
+					<li class="dropdown-header"><?php _e('School Calendars','csdschools'); ?></li>
+					
 					<?php while( have_rows('school_calendars', 'options') ): the_row(); ?>
+					
 						<li>
 							<a href="<?php the_sub_field('calendar_ical'); ?>"><i class="fa fa-download"></i> <label><?php the_sub_field('calendar_name'); ?></label></a>
 						</li>
+					
 					<?php endwhile; ?>
+				
 				<?php endif; ?>
+            
             </ul>
 		</div>
 		<div id="calendar-dropdown-view" class="calendar-dropdown">
-			<button type="button" id="dropdown-menu-view" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-filter"></i> Filter </button>
+			<button type="button" id="dropdown-menu-view" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-filter"></i> <?php _e('Filter','csdschools'); ?> </button>
 			<ul class="dropdown-menu" aria-labelledby="dropdown-menu-view" >
+				
 				<?php if( have_rows('calendars', 'options') ): ?>
+				
 					<?php $count = 0; ?>
+				
 					<?php while( have_rows('calendars', 'options') ): the_row(); ?>
+				
 						<li>
 						   <label class="checkbox"><input type="checkbox" id="<?php echo str_replace(' ', '_', get_sub_field('calendar_name')); ?>" <?php echo get_sub_field('visible') ? 'checked="checked"' : ''; ?> value="<?php echo $count; ?>" /><span class="label-text"><?php the_sub_field('calendar_name'); ?></label>
 						</li>
+				
 						<?php $count++; ?>
+				
 					<?php endwhile; ?>
+				
 				<?php endif; ?>
+				
 				<?php if( have_rows('school_calendars', 'options') ): ?>
+				
 					<li role="separator" class="divider"></li>
-					<li class="dropdown-header">School Calendars</li>	
+					<li class="dropdown-header"><?php _e('School Calendars','csdschools'); ?></li>	
+				
 				 	<?php while( have_rows('school_calendars', 'options') ): the_row(); ?>
+				
 				 		<li>
 							<label class="checkbox"><input type="checkbox" id="<?php echo str_replace(' ', '_', get_sub_field('calendar_name')); ?>" <?php echo get_sub_field('visible') ? 'checked="checked"' : ''; ?> value="<?php echo $count; ?>" /><span class="label-text"><?php the_sub_field('calendar_name'); ?></label>
 				 		</li>
+				
 				 		<?php $count++; ?>
+				
 				 	<?php endwhile; ?>
-				<?php endif; ?>           
+				
+				<?php endif; ?>    
+				       
 			</ul>
 		</div>
 	</div>
@@ -72,8 +100,8 @@ function render_calendar() {
 		<h1 id="month" class="mb-0"><?php echo date('F Y'); ?></h1>
 	</div>
 	<div id="calendar-buttons" class="col-12 col-md-5 col-lg-4 text-center text-md-right">
-		<button id="prev" class="btn btn-primary btn-sm"><i class="fa fa-caret-left"></i> Prev</button>
-		<button id="next" class="btn btn-primary btn-sm">Next <i class="fa fa-caret-right "></i></button>
+		<button id="prev" class="btn btn-primary btn-sm"><i class="fa fa-caret-left"></i> <?php _e('Prev','csdschools'); ?></button>
+		<button id="next" class="btn btn-primary btn-sm"><?php _e('Next','csdschools'); ?> <i class="fa fa-caret-right "></i></button>
 	</div>
 </div>
 <div class="row">
@@ -95,7 +123,9 @@ function render_calendar() {
 		
 		// Get district calendars
 		<?php if( have_rows('calendars', 'options') ): ?>
+			
 			<?php while( have_rows('calendars', 'options') ): the_row(); ?>
+			
 				<?php $calendar_address = get_sub_field('calendar_address'); ?>
 				<?php $calendar_name = get_sub_field('calendar_name'); ?>
 				<?php $calendar_color = get_sub_field('calendar_color'); ?>
@@ -123,11 +153,14 @@ function render_calendar() {
 				});
 				
 			<?php endwhile; ?>
+			
 		<?php endif; ?>
 
 		// If applicable, get school calendars
 		<?php if( have_rows('school_calendars', 'options') ): ?>
+			
 			<?php while( have_rows('school_calendars', 'options') ): the_row(); ?>
+			
 				<?php $calendar_address = get_sub_field('calendar_address'); ?>
 				<?php $calendar_name = get_sub_field('calendar_name'); ?>
 				<?php $calendar_color = get_sub_field('calendar_color'); ?>
@@ -142,6 +175,7 @@ function render_calendar() {
 				});
 				
 			<?php endwhile; ?>
+			
 		<?php endif; ?>
 				
 		// Toggle function for calendars
@@ -238,7 +272,9 @@ function render_list_view() {
 		var allEventSources = [];
 		
 		<?php if( have_rows('calendars', 'options') ): ?>
+		
 			<?php while( have_rows('calendars', 'options') ): the_row(); ?>
+			
 				<?php $calendar_address = get_sub_field('calendar_address'); ?>
 				<?php $calendar_name = get_sub_field('calendar_name'); ?>
 				<?php $calendar_color = get_sub_field('calendar_color'); ?>
@@ -253,7 +289,9 @@ function render_list_view() {
 				});
 
 			<?php endwhile; ?>
+			
 		<?php endif; ?>	
+		
 		$('#calendar-list').fullCalendar({
 
 			themeSystem: 'bootstrap4',
@@ -300,7 +338,9 @@ function render_list_view_district() {
 		var allEventSources = [];
 		
 		<?php if( have_rows('calendars', 'options') ): ?>
+		
 			<?php while( have_rows('calendars', 'options') ): the_row(); ?>
+			
 				<?php $calendar_address = get_sub_field('calendar_address'); ?>
 				<?php $calendar_name = get_sub_field('calendar_name'); ?>
 				<?php $calendar_color = get_sub_field('calendar_color'); ?>
@@ -315,6 +355,7 @@ function render_list_view_district() {
 				});
 
 			<?php endwhile; ?>
+			
 		<?php endif; ?>	
 		
 		$('#calendar-list-district').fullCalendar({
@@ -424,7 +465,7 @@ function render_block_calendar($calendar_address) {
 				
 				listDayAltFormat: false,
 				
-				noEventsMessage: 'No school today',
+				noEventsMessage: '<?php __('No School Today','csdschools'); ?>',
 				
 				displayEventTime: false, // show the time column in list view
 				
@@ -437,7 +478,7 @@ function render_block_calendar($calendar_address) {
 				timezone: 'America/Los_Angeles',
 
 				eventRender: function (event, element) {
-					content = '<ul id="calendar-block-wrap" class="list-inline"><li class="list-inline-item"><i class="fa fa-calendar-alt"></i> ' + event.title + '</li><li class="list-inline-item d-none d-md-inline-block"><i class="fa fa-phone-square"></i> Attendance <a href="tel:<?php the_field('attendance_phone', 'options'); ?>"><?php the_field('attendance_phone', 'options'); ?></a></li></ul>';
+					content = '<ul id="calendar-block-wrap" class="list-inline"><li class="list-inline-item"><i class="fa fa-calendar-alt"></i> ' + event.title + '</li><li class="list-inline-item d-none d-md-inline-block"><i class="fa fa-phone-square"></i> <?php _e('Attendance','csdschools'); ?> <a href="tel:<?php the_field('attendance_phone', 'options'); ?>"><?php the_field('attendance_phone', 'options'); ?></a></li></ul>';
 					$('#calendar-block-header').html(content);
 					$('#calendar-block-header').removeClass('fc fc-unthemed fc-ltr');
 				}
