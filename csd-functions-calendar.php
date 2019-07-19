@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 2.0
+Version: 2.1
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -457,7 +457,7 @@ function render_block_calendar($calendar_address) {
 			
 			$('#calendar-block-header').fullCalendar({
 	
-				themeSystem: 'bootstrap4',
+				themeSystem: '',
 				
 				defaultView: 'listDay',
 				
@@ -465,7 +465,7 @@ function render_block_calendar($calendar_address) {
 				
 				listDayAltFormat: false,
 				
-				noEventsMessage: '<?php __('No School Today','csdschools'); ?>',
+				noEventsMessage: '<?php _e('No School Today','csdschools'); ?>',
 				
 				displayEventTime: false, // show the time column in list view
 				
