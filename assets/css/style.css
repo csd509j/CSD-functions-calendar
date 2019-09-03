@@ -119,7 +119,7 @@
 	color: white !important;	
 	background-color: #999999 !important;
 }
-#calendar.fc-bootstrap4 td.fc-today {
+#calendar.fc-bootstrap td.fc-today {
 	background-color: #ffffff;
 }
 .page-template-page-calendar .popover .popover-content {
@@ -157,7 +157,7 @@
 #calendar-list .fc-toolbar {
 	display: none;
 }
-#calendar-list .fc-bootstrap4 .fc-divider, .fc-bootstrap4 .fc-list-heading td, .fc-bootstrap4 .fc-popover .fc-header {
+#calendar-list .fc-bootstrap .fc-divider, .fc-bootstrap .fc-list-heading td, .fc-bootstrap .fc-popover .fc-header {
 	background-color: #ddd;
 }
 #calendar-list .fc-view-container {
@@ -190,7 +190,7 @@
 	font-size: 12px;
 	text-transform: uppercase;
 }
-#calendar-list-district.fc-bootstrap4 .fc-list-item:hover td {
+#calendar-list-district.fc-bootstrap .fc-list-item:hover td {
 	background-color: white;
 }
 #calendar-list-district .fc-list-table  tr {
