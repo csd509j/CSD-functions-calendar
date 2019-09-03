@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 2.2
+Version: 2.3
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -18,8 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function render_calendar() {
-
+function get_language() {
+	
 	// Set default language
 	$current_lang = apply_filters( 'wpml_current_language', NULL );
 	
@@ -28,7 +28,14 @@ function render_calendar() {
 		$current_lang = 'default';
 		
 	} 
+	
+	return $current_lang;
+}
 
+function render_calendar() {	
+	
+	$current_lang = get_language();
+	
 ?>
 
 	<div class="row">
@@ -208,7 +215,7 @@ function render_calendar() {
 				
 				defaultView: window.mobilecheck() ? 'listMonth' : 'dayGridMonth',
 				
-				<?php if( $current_lang =='es' ) : ?>
+				<?php if ( $current_lang == 'es' ): ?>
 				
 					locale: 'es',
 					
@@ -339,6 +346,12 @@ function render_list_view() {
 				eventLimit: true,
 				
 				allDayText: "-",
+				
+				<?php if ( get_language() == 'es' ):  ?>
+				
+					locale: 'es',
+					
+				<?php endif; ?>
 							
 				googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
 					
@@ -477,6 +490,12 @@ function render_page_builder_calendar($calendar_address) {
 				eventSources: allEventSources,
 				
 				header: false,
+				
+				<?php if ( get_language() == 'es' ):  ?>
+				
+					locale: 'es',
+					
+				<?php endif; ?>
 				
 				timezone: 'America/Los_Angeles',
 				
