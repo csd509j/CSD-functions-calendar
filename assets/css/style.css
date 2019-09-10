@@ -80,6 +80,9 @@
 #calendar .fc-view-container {
 	background-color: white;
 }
+#calendar .fc-listMonth-view .fc-scroller {
+	min-height: 500px;
+}
 #calendar.fc th {
 	background-color: #666;
     color: #fff;

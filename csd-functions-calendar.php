@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 2.4
+Version: 2.5
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -114,7 +114,7 @@ function render_calendar() {
 			</div>
 		</div>
 		<div class="col-12 col-md-7 col-lg-4 text-center text-md-left text-lg-center">
-			<h1 id="month" class="mb-0"></h1>
+			<h1 id="month" class="mb-1"></h1>
 		</div>
 		<div id="calendar-buttons" class="col-12 col-md-5 col-lg-4 text-center text-md-right">
 			<button id="prev" class="btn btn-primary btn-sm"><i class="fa fa-caret-left"></i> <?php _e('Prev','csdschools'); ?></button>
@@ -148,6 +148,7 @@ function render_calendar() {
 					<?php $calendar_address = get_sub_field('calendar_address'); ?>
 					<?php $calendar_name = get_sub_field('calendar_name'); ?>
 					<?php $calendar_color = get_sub_field('calendar_color'); ?>
+					<?php $calendar_type = get_sub_field('calendar_type'); ?>
 					
 					// Load calendars that are marked as visable
 					<?php if ( get_sub_field('visible') ): ?>
@@ -158,6 +159,13 @@ function render_calendar() {
 							textColor: '<?php echo $calendar_color; ?>',
 							backgroundColor: '<?php echo $calendar_color; ?>',
 							borderColor: '<?php echo $calendar_color; ?>',
+						
+							<?php if ( $calendar_type == 'Block'): ?>
+								
+								allDayDefault: true,
+																						
+							<?php endif; ?>
+							
 						});
 					
 					<?php endif; ?>
@@ -169,6 +177,13 @@ function render_calendar() {
 						textColor: '<?php echo $calendar_color; ?>',
 						backgroundColor: '<?php echo $calendar_color; ?>',
 						borderColor: '<?php echo $calendar_color; ?>',
+						
+						<?php if ( $calendar_type == 'Block'): ?>
+							
+							allDayDefault: true,
+																					
+						<?php endif; ?>
+												
 					});
 					
 				<?php endwhile; ?>
@@ -183,6 +198,7 @@ function render_calendar() {
 					<?php $calendar_address = get_sub_field('calendar_address'); ?>
 					<?php $calendar_name = get_sub_field('calendar_name'); ?>
 					<?php $calendar_color = get_sub_field('calendar_color'); ?>
+					<?php $calendar_type = get_sub_field('calendar_type'); ?>
 					
 					// Load all available calendars
 					allEventSources.push({
@@ -191,6 +207,13 @@ function render_calendar() {
 						textColor: '<?php echo $calendar_color; ?>',
 						backgroundColor: '<?php echo $calendar_color; ?>',
 						borderColor: '<?php echo $calendar_color; ?>',
+						
+						<?php if ( $calendar_type == 'Block'): ?>
+							
+							allDayDefault: true,
+																					
+						<?php endif; ?>
+						
 					});
 					
 				<?php endwhile; ?>
@@ -215,6 +238,8 @@ function render_calendar() {
 				
 				defaultView: window.mobilecheck() ? 'listMonth' : 'dayGridMonth',
 				
+				allDayText: '-',
+
 				<?php if ( $current_lang == 'es' ): ?>
 				
 					locale: 'es',
@@ -315,6 +340,7 @@ function render_list_view() {
 					<?php $calendar_address = get_sub_field('calendar_address'); ?>
 					<?php $calendar_name = get_sub_field('calendar_name'); ?>
 					<?php $calendar_color = get_sub_field('calendar_color'); ?>
+					<?php $calendar_type = get_sub_field('calendar_type'); ?>
 					
 					allEventSources.push(
 					{
@@ -323,6 +349,13 @@ function render_list_view() {
 						textColor: '<?php echo $calendar_color; ?>',
 						backgroundColor: '<?php echo $calendar_color; ?>',
 						borderColor: '<?php echo $calendar_color; ?>',
+						
+						<?php if ( $calendar_type == 'Block'): ?>
+							
+							allDayDefault: true,
+														
+						<?php endif; ?>
+						
 					});
 	
 				<?php endwhile; ?>
@@ -345,7 +378,7 @@ function render_list_view() {
 				
 				eventLimit: true,
 				
-				allDayText: "-",
+				allDayText: '-',
 				
 				<?php if ( get_language() == 'es' ):  ?>
 				
@@ -401,6 +434,7 @@ function render_list_view_district() {
 					<?php $calendar_address = get_sub_field('calendar_address'); ?>
 					<?php $calendar_name = get_sub_field('calendar_name'); ?>
 					<?php $calendar_color = get_sub_field('calendar_color'); ?>
+					<?php $calendar_type = get_sub_field('calendar_type'); ?>
 					
 					allEventSources.push(
 					{
@@ -409,6 +443,13 @@ function render_list_view_district() {
 						textColor: '<?php echo $calendar_color; ?>',
 						backgroundColor: '<?php echo $calendar_color; ?>',
 						borderColor: '<?php echo $calendar_color; ?>',
+						
+						<?php if ( $calendar_type == 'Block'): ?>
+							
+							allDayDefault: true,
+														
+						<?php endif; ?>
+												
 					});
 	
 				<?php endwhile; ?>
@@ -430,6 +471,8 @@ function render_list_view_district() {
 				eventSources: allEventSources,
 				
 				header: false,
+				
+				allDayText: '-',
 				
 				timezone: 'America/Los_Angeles',
 				
@@ -488,7 +531,7 @@ function render_page_builder_calendar($calendar_address) {
 				googleCalendarApiKey: 'AIzaSyCtn4VYI0llZ2sEGiMgezxWyBDTVuKaHds',
 					
 				eventSources: allEventSources,
-				
+								
 				header: false,
 				
 				<?php if ( get_language() == 'es' ):  ?>
@@ -557,6 +600,8 @@ function render_block_calendar($calendar_address) {
 				listDayAltFormat: false,
 				
 				displayEventTime: false,
+				
+				allDay: true,
 				
 				noEventsMessage: '<?php _e('No School Today','csdschools'); ?>',
 							  
