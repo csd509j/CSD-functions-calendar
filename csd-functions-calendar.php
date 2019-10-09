@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSD Functions - Calendar
-Version: 2.5
+Version: 2.6
 Description: Custom Google calendar implementation for district websites
 Author: Josh Armentano
 Author URI: https://abidewebdesign.com
@@ -614,7 +614,7 @@ function render_block_calendar($calendar_address) {
 				defaultView: 'listDay',
 				
 				eventRender: function (info) {
-					document.getElementById('calendar-block-header').innerHTML = '<ul id="calendar-block-wrap" class="list-inline"><li class="list-inline-item"><i class="fa fa-calendar-alt"></i> ' + info.event.title + '</li><li class="list-inline-item d-none d-md-inline-block"><i class="fa fa-phone-square"></i> <?php _e('Attendance','csdschools'); ?> <a href="tel:<?php the_field('attendance_phone', 'options'); ?>"><?php the_field('attendance_phone', 'options'); ?></a></li></ul>';
+					document.getElementById('calendar-block-header').innerHTML = '<ul id="calendar-block-wrap" class="list-inline"><li class="list-inline-item"><i class="fa fa-calendar-alt"></i> ' + info.event.title + '</li></ul>';
 				}
 				
 			});
